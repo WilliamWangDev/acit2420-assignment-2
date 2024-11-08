@@ -1,27 +1,27 @@
 #!/bin/bash
 
-# Source the root check script
+# Import the root check script
 source ../utils/verify_root
 
-# Usage function to display help
-usage() {
-    echo "Usage: $0 -f package_file"
-    echo "  -f    Specify the file containing the list of packages to install"
+# Instruction function to display help
+Instruction() {
+    echo "Instruction: $0 -f package_file_path"
+    echo "  -f  Please type the package file to install after -f"
     exit 1
 }
 
-# Parse command line arguments using getopts
+# Handle command line arguments using getopts
 while getopts "f:" opt; do
   case ${opt} in
     f) package_file="$OPTARG" ;;
-    *) usage ;;
+    *) Instruction ;;
   esac
 done
 
-# Check if package file is provided
+# Check if the file argument is provided
 if [[ -z "$package_file" ]]; then
     echo "Error: Package file not specified."
-    usage
+    Instruction
 fi
 
 # Check if the package file exists
@@ -36,6 +36,7 @@ for package in $(cat "$package_file"); do
     packages+=("$package")
 done
 
+# Print the list of packages to install
 echo "Packages to install: ${packages[@]}"
 
 # Iterate over each package and install it
