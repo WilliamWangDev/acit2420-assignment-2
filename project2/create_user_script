@@ -1,0 +1,67 @@
+#!/bin/bash
+
+source ../utils/verify_root
+
+# Usage function to display help
+usage() {
+    echo "Usage: $0 -u USERNAME -s SHELL -d HOME_DIR -g ADDITIONAL_GROUPS"
+    echo "  -u    Specify the username for the new user"
+    echo "  -s    Specify the default shell for the user (e.g., /bin/bash)"
+    echo "  -d    Specify the home directory for the user (e.g., /home/username)"
+    echo "  -g    Specify additional groups for the user (comma-separated)"
+    exit 1
+}
+
+# Parse arguments using getopts
+while getopts "u:s:d:g:" opt; do
+  case ${opt} in
+    u) username="$OPTARG" ;;
+    s) shell="$OPTARG" ;;
+    d) home_dir="$OPTARG" ;;
+    g) extra_groups="$OPTARG" ;;
+    *) usage ;;
+  esac
+done
+
+# Check if all arguments are provided
+if [[ -z "$username" || -z "$shell" || -z "$home_dir" ]]; then
+    echo "Error: Missing required arguments."
+    usage
+fi
+
+# Create the primary group
+if ! grep -q "^$username:" /etc/group; then
+    echo "Creating primary group $username."
+    groupadd "$username"
+fi
+
+# Create the new user
+echo "Creating user $username."
+
+# Create the home directory
+if [ ! -d "$home_dir" ]; then
+    mkdir -p "$home_dir"
+    chown "$username:$username" "$home_dir"
+fi
+
+# Copy the contents of /etc/skel to the new home directory
+echo "Copying default configuration files to $home_dir."
+cp -r /etc/skel/. "$home_dir"
+chown -R "$username:$username" "$home_dir"
+
+# Add user to additional groups
+if [ -n "$extra_groups" ]; then
+    for group in ${extra_groups//,/ }; do
+        if ! grep -q "^$group:" /etc/group; then
+            echo "Creating additional group $group."
+            groupadd "$group"
+        fi
+        usermod -aG "$group" "$username"
+    done
+fi
+
+# Set a password
+echo "Setting password for $username."
+passwd "$username"
+
+echo "User $username has been created successfully."

@@ -12,7 +12,7 @@
 │   ├── packages
 │   └── symlinks_script
 └── project2
-    └── TODO
+    └── create_user_script
 ```
 
 ## Project 1
