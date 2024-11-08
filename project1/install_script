@@ -1,9 +1,40 @@
 #!/bin/bash
 
+# Source the root check script
 source ../utils/verify_root
 
-# Read a list of packages into an array
-mapfile -t packages < packages
+# Usage function to display help
+usage() {
+    echo "Usage: $0 -f package_file"
+    echo "  -f    Specify the file containing the list of packages to install"
+    exit 1
+}
+
+# Parse command line arguments using getopts
+while getopts "f:" opt; do
+  case ${opt} in
+    f) package_file="$OPTARG" ;;
+    *) usage ;;
+  esac
+done
+
+# Check if package file is provided
+if [[ -z "$package_file" ]]; then
+    echo "Error: Package file not specified."
+    usage
+fi
+
+# Check if the package file exists
+if [[ ! -f "$package_file" ]]; then
+    echo "Error: File '$package_file' not found."
+    exit 1
+fi
+
+# Read each line from the package file into an array
+packages=()
+for package in $(cat "$package_file"); do
+    packages+=("$package")
+done
 
 echo "Packages to install: ${packages[@]}"
 
@@ -16,3 +47,4 @@ for package in "${packages[@]}"; do
         echo "$package is already installed"
     fi
 done
+
