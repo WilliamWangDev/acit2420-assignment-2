@@ -1,10 +1,6 @@
 #!/bin/bash
 
-# Check if the script is run as root
-if [ "$EUID" -ne 0 ]; then
-    echo "Please run this script as root (e.g., with 'sudo')."
-    exit 1
-fi
+source ../utils/verify_root
 
 # Get the user's home directory
 USER_HOME=$(eval echo "~$SUDO_USER")
