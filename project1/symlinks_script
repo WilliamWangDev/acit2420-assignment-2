@@ -10,7 +10,7 @@ USER_HOME=$(eval echo "~$SUDO_USER")
 SCRIPT_DIR="$(realpath "$(dirname "$0")")"
 
 # Print process message
-echo "Setting up configuration files..."
+echo "Creating symbolic links..."
 
 # Create symbolic links
 ln -sf "$SCRIPT_DIR/config" "$USER_HOME/.config"
@@ -18,4 +18,4 @@ ln -sf "$SCRIPT_DIR/bin" "$USER_HOME/bin"
 ln -sf "$SCRIPT_DIR/home/bashrc" "$USER_HOME/.bashrc"
 
 # Print completion message
-echo "Configuration setup complete."
+echo "Symbolic links created successfully."
