@@ -1,38 +1,39 @@
 #!/bin/bash
 
+# Import the root check script
 source ../utils/verify_root
 
-# Usage function to display help
-usage() {
-    echo "Usage: $0 -u USERNAME -s SHELL -d HOME_DIR -g ADDITIONAL_GROUPS"
-    echo "  -u    Specify the username for the new user"
-    echo "  -s    Specify the default shell for the user (e.g., /bin/bash)"
-    echo "  -d    Specify the home directory for the user (e.g., /home/username)"
-    echo "  -g    Specify additional groups for the user (comma-separated)"
+# Instruction function to display help
+Instruction() {
+    echo "Instruction: $0 -u USERNAME -s SHELL -d HOME_DIR -g ADDITIONAL_GROUPS"
+    echo "  -u    Please type the username after -u"
+    echo "  -s    Please type the shell(e.g., /bin/bash) after -s"
+    echo "  -d    Please type the home directory(e.g., /home/username) after -d"
+    echo "  -g    Please type the additional groups separated by commas after -g"
     exit 1
 }
 
-# Parse arguments using getopts
+# Handle arguments using getopts 
 while getopts "u:s:d:g:" opt; do
   case ${opt} in
     u) username="$OPTARG" ;;
     s) shell="$OPTARG" ;;
     d) home_dir="$OPTARG" ;;
     g) extra_groups="$OPTARG" ;;
-    *) usage ;;
+    *) Instruction ;;
   esac
 done
 
 # Check if all arguments are provided
 if [[ -z "$username" || -z "$shell" || -z "$home_dir" ]]; then
     echo "Error: Missing required arguments."
-    usage
+    Instruction
 fi
 
-# Create the new user
+# Create the new user with home directory, shell and group
 useradd -m -d "$home_dir" -s "$shell" -U "$username"
 
-# echo the new user
+# Print the new user
 echo "Creating user $username."
 
 # Chech if the new user was created
@@ -46,7 +47,7 @@ echo "Copying default configuration files to $home_dir."
 cp -r /etc/skel/. "$home_dir"
 chown -R "$username:$username" "$home_dir"
 
-# Add user to additional groups
+# Allow user to add additional groups
 if [ -n "$extra_groups" ]; then
     for group in ${extra_groups//,/ }; do
         if ! grep -q "^$group:" /etc/group; then
@@ -57,8 +58,9 @@ if [ -n "$extra_groups" ]; then
     done
 fi
 
-# Set a password
+# Set a password for the new user
 echo "Setting password for $username."
 passwd "$username"
 
+# Print the successful message
 echo "User $username has been created successfully."
