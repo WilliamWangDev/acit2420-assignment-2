@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# Import the root check script
 source ../utils/verify_root
 
 # Get the user's home directory
@@ -8,11 +9,13 @@ USER_HOME=$(eval echo "~$SUDO_USER")
 # Define paths relative to the user's home directory
 SCRIPT_DIR="$(realpath "$(dirname "$0")")"
 
+# Print process message
 echo "Setting up configuration files..."
 
-# Symbolic links
+# Create symbolic links
 ln -sf "$SCRIPT_DIR/config" "$USER_HOME/.config"
 ln -sf "$SCRIPT_DIR/bin" "$USER_HOME/bin"
 ln -sf "$SCRIPT_DIR/home/bashrc" "$USER_HOME/.bashrc"
 
+# Print completion message
 echo "Configuration setup complete."
