@@ -29,19 +29,16 @@ if [[ -z "$username" || -z "$shell" || -z "$home_dir" ]]; then
     usage
 fi
 
-# Create the primary group
-if ! grep -q "^$username:" /etc/group; then
-    echo "Creating primary group $username."
-    groupadd "$username"
-fi
-
 # Create the new user
+useradd -m -d "$home_dir" -s "$shell" -U "$username"
+
+# echo the new user
 echo "Creating user $username."
 
-# Create the home directory
-if [ ! -d "$home_dir" ]; then
-    mkdir -p "$home_dir"
-    chown "$username:$username" "$home_dir"
+# Chech if the new user was created
+if ! id -u "$username" &>/dev/null; then
+  echo "Error: Failed to create user $username"
+  exit 1
 fi
 
 # Copy the contents of /etc/skel to the new home directory
