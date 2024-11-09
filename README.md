@@ -16,9 +16,6 @@
 │    └── create_user_script
 └── utils
     └── verify_root
-
-    
-
 ```
 
 ## Project 1: System Configuration
