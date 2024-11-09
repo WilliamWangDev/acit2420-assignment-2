@@ -1,8 +1,8 @@
-# ACIT-2420 assignment 2
+# ACIT-2420 Assignment 2
 
-## File structure
+## Project Structure
 ```
-. 
+.
 ├── README.md
 ├── project1
 │   ├── bin
@@ -13,66 +13,74 @@
 │   ├── packages
 │   └── symlinks_script
 ├── project2
-│    └── create_user_script
+│   └── create_user_script
 └── utils
     └── verify_root
 ```
 
 ## Project 1: System Configuration
-### Overview
-Project 1 automates the setup of essential software packages and configuration files for a new system. It includes:
-- `main_script`: Executes both `install_script` and `symlinks_script` to complete the setup.
-&nbsp;
-- `install_script`: Installs packages specified in a package file.
-&nbsp;
-- `symlinks_script`: Creates symbolic links for configuration files.
-&nbsp;
-- `utils/verify_root`: Source utility script to check if the user is running as root.
 
-### Installation Steps
-1. **Run the Main Setup Script**
+### Overview
+Project 1 automates the setup of essential software packages and configuration files for a new system. It consists of the following components:
+
+- `main_script`: Primary script that orchestrates the entire setup process by executing both the installation and symlink scripts
+- `install_script`: Handles the installation of specified packages
+- `symlinks_script`: Manages the creation of symbolic links for configuration files
+- `utils/verify_root`: Utility script to verify root user privileges
+
+### Installation
+
+#### Option 1: Automated Setup (Recommended)
+Run the main setup script:
 ```bash
 cd project1
 sudo ./main_script
-``` 
+```
+
 This will:
-- Run `install_script` with packages file as an argument to install necessary packages.
-- Run `symlinks_script` to set up symbolic links for configuration files.
-2. **Alternative: Manual Execution** If you need to run the scripts individually, use the following steps:
-- **Install Packages**
+1. Execute `install_script` with the packages file to install necessary software
+2. Run `symlinks_script` to configure symbolic links
+
+#### Option 2: Manual Installation
+If you need more control, you can run the scripts individually:
+
+1. Install Packages:
 ```bash
 sudo ./install_script -f packages
 ```
-The `-f` flag specifies the path to the package file. The `packages` file is provided as an example.
-- **Create Symbolic Links**:
+The `-f` flag specifies the path to the package file.
+
+2. Create Symbolic Links:
 ```bash
 sudo ./symlinks_script
 ```
-This script will link configuration files from the `config` and `home` directories to the correct locations in your home directory.
+This will create symbolic links from the `config` and `home` directories to their appropriate locations.
 
----
-## Project 2: New User Creation Script
+## Project 2: User Management
+
 ### Overview
-Project 2 provides a script to create a new user on the system with specified configurations.
+Project 2 provides a script for creating new users with custom configurations.
+
 ### Usage
-1. **Run the Create User Script**
 ```bash
 cd project2
 sudo ./create_user_script -u username -s shell -d directory -g group
 ```
-- `-u`: Specify the username
-- `-s`: Specify the default shell for the user
-- `-d`: Specify the home directory for the user
-- `-g`: Specify the additional group for the user
 
-### Example
+#### Parameters
+- `-u`: Username for the new account
+- `-s`: Default shell (e.g., /bin/bash)
+- `-d`: Home directory path
+- `-g`: Additional group membership
+
+#### Example
 ```bash
 sudo ./create_user_script -u newuser -s /bin/bash -d /home/newuser -g sudo
 ```
-This will create a user named `newuser` with `/bin/bash` as the shell, `/home/newuser` as the home directory, and add the user to the `sudo` group.
-
----
-This setup provides a streamlined process for system initialization and user management. For any further instructions or troubleshooting, refer to the comments in each script.
+This creates a user "newuser" with:
+- Shell: `/bin/bash`
+- Home directory: `/home/newuser`
+- Added to the `sudo` group
 
 ---
 ### References
