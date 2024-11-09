@@ -22,19 +22,27 @@ source ../utils/verify_root
 
 # Define directories
 CURRENT_DIR="$(pwd)"
+echo "Root directory is set to: $CURRENT_DIR"
 
-# Create ~/bin and link files
+# Ensure the ~/bin directory exists and create symbolic links for bin files
 mkdir -p ~/bin
+echo "Creating symbolic links in ~/bin"
 ln -sf "$CURRENT_DIR/bin/sayhi" ~/bin/sayhi
 ln -sf "$CURRENT_DIR/bin/install-fonts" ~/bin/install-fonts
 
-# Create ~/.config and link config directories
+# Ensure ~/.config/kak and ~/.config/tmux directories exist, then create symbolic links
+echo "Creating ~/.config/kak directory"
 mkdir -p ~/.config/kak
+echo "Linking kakrc to ~/.config/kak/kakrc"
 ln -sf "$CURRENT_DIR/config/kak/kakrc" ~/.config/kak/kakrc
+
+echo "Creating ~/.config/tmux directory"
 mkdir -p ~/.config/tmux
+echo "Linking tmux.conf to ~/.config/tmux/tmux.conf"
 ln -sf "$CURRENT_DIR/config/tmux/tmux.conf" ~/.config/tmux/tmux.conf
 
-# Link bashrc file to ~/.bashrc
+# Create a symbolic link for the bashrc file
+echo "Linking bashrc to ~/.bashrc"
 ln -sf "$CURRENT_DIR/home/bashrc" ~/.bashrc
 
 echo "Symbolic links created successfully."
