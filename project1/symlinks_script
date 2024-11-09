@@ -10,7 +10,8 @@ USER_HOME="/home/$SUDO_USER"
 # Get the current working directory where the script is located
 CURRENT_DIR="$(pwd)"
 
-# Create the ~/bin directory 
+# Create the ~/bin directory
+echo "Creating $USER_HOME/bin directory" 
 mkdir -p "$USER_HOME/bin"
 
 # Create symbolic links for bin files
