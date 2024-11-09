@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Run the package installation script
+./install_script
+
+# Run the symbolic link script
+./symlinks_script
+
+echo "System setup complete."
