@@ -37,4 +37,5 @@ ln -sf "$CURRENT_DIR/config/tmux/tmux.conf" ~/.config/tmux/tmux.conf
 # Link bashrc file to ~/.bashrc
 ln -sf "$CURRENT_DIR/home/bashrc" ~/.bashrc
 
+echo "Symbolic links created successfully."
 

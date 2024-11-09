@@ -55,3 +55,8 @@ fi
 
 # use fzf bash shortcuts
 eval "$(fzf --bash)"
+
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/github
+
+eval `keychain --eval --agents ssh ~/.ssh/github`
