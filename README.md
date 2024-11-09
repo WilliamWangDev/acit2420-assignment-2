@@ -69,3 +69,14 @@ This will create a user named `newuser` with `/bin/bash` as the shell, `/home/ne
 
 ---
 This setup provides a streamlined process for system initialization and user management. For any further instructions or troubleshooting, refer to the comments in each script.
+
+---
+### References
+Each script includes detailed comments with references to the sources used for guidance and inspiration. This is the list of references used:
+1. https://wiki.archlinux.org/title/Pacman
+2. https://stackoverflow.com/questions/1951506/add-a-new-element-to-an-array-without-specifying-the-index-in-bash
+3. https://stackoverflow.com/questions/34567826/what-is-usage-in-shell-scripting
+4. https://unix.stackexchange.com/questions/190221/sudo-user-undefined-in-sudo-manual-clarification-would-be-lovely
+5. https://stackoverflow.com/questions/34567826/what-is-usage-in-shell-scripting
+6. https://stackoverflow.com/questions/59468951/what-does-if-z-1-condition-means-in-bash-programming#:~:text=%241%20means%20an%20input%20argument,defined%20when%20running%20the%20script
+7. https://stackoverflow.com/questions/42792467/how-to-create-a-bash-script-in-linux-that-checks-if-the-user-is-local-or-not
