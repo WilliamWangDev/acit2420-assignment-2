@@ -50,7 +50,7 @@ sudo ./install_script -f packages
 ```
 The `-f` flag specifies the path to the package file.
 
-2. Create Symbolic Links:
+### Create Symbolic Links:
 ```bash
 sudo ./symlinks_script
 ```
