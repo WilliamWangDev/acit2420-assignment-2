@@ -20,30 +20,34 @@ source ../utils/verify_root
 # # Print completion message
 # echo "Symbolic links created successfully."
 
-# Define directories
-CURRENT_DIR="$(pwd)"
-echo "Root directory is set to: $CURRENT_DIR"
+# Use SUDO_USER to determine the actual user's home directory
+USER_HOME="/home/$SUDO_USER"
+echo "Using home directory: $USER_HOME"
+
+# Define the root directory where the script is located
+ROOT_DIR="$(pwd)"
+echo "Root directory is set to: $ROOT_DIR"
 
 # Ensure the ~/bin directory exists and create symbolic links for bin files
-mkdir -p ~/bin
-echo "Creating symbolic links in ~/bin"
-ln -sf "$CURRENT_DIR/bin/sayhi" ~/bin/sayhi
-ln -sf "$CURRENT_DIR/bin/install-fonts" ~/bin/install-fonts
+mkdir -p "$USER_HOME/bin"
+echo "Creating symbolic links in $USER_HOME/bin"
+ln -sf "$ROOT_DIR/bin/sayhi" "$USER_HOME/bin/sayhi"
+ln -sf "$ROOT_DIR/bin/install-fonts" "$USER_HOME/bin/install-fonts"
 
 # Ensure ~/.config/kak and ~/.config/tmux directories exist, then create symbolic links
-echo "Creating ~/.config/kak directory"
-mkdir -p ~/.config/kak
-echo "Linking kakrc to ~/.config/kak/kakrc"
-ln -sf "$CURRENT_DIR/config/kak/kakrc" ~/.config/kak/kakrc
+echo "Creating $USER_HOME/.config/kak directory"
+mkdir -p "$USER_HOME/.config/kak"
+echo "Linking kakrc to $USER_HOME/.config/kak/kakrc"
+ln -sf "$ROOT_DIR/config/kak/kakrc" "$USER_HOME/.config/kak/kakrc"
 
-echo "Creating ~/.config/tmux directory"
-mkdir -p ~/.config/tmux
-echo "Linking tmux.conf to ~/.config/tmux/tmux.conf"
-ln -sf "$CURRENT_DIR/config/tmux/tmux.conf" ~/.config/tmux/tmux.conf
+echo "Creating $USER_HOME/.config/tmux directory"
+mkdir -p "$USER_HOME/.config/tmux"
+echo "Linking tmux.conf to $USER_HOME/.config/tmux/tmux.conf"
+ln -sf "$ROOT_DIR/config/tmux/tmux.conf" "$USER_HOME/.config/tmux/tmux.conf"
 
 # Create a symbolic link for the bashrc file
-echo "Linking bashrc to ~/.bashrc"
-ln -sf "$CURRENT_DIR/home/bashrc" ~/.bashrc
+echo "Linking bashrc to $USER_HOME/.bashrc"
+ln -sf "$ROOT_DIR/home/bashrc" "$USER_HOME/.bashrc"
 
-echo "Symbolic links created successfully."
+echo "Symbolic links created successfully for user: $SUDO_USER"
 
