@@ -1,6 +1,10 @@
 #!/bin/bash
 
+# Reference:
+# 1: https://stackoverflow.com/questions/27669950/difference-between-euid-and-uid
+
 # Check if the script is run as root
+# Ref - 1
 if [ "$EUID" -ne 0 ]; then
     echo "Please run this script as root (e.g., with 'sudo')."
     exit 1

@@ -1,9 +1,16 @@
 #!/bin/bash
 
+# Reference:
+# 1: https://stackoverflow.com/questions/34567826/what-is-usage-in-shell-scripting
+# 2: https://stackoverflow.com/questions/59468951/what-does-if-z-1-condition-means-in-bash-programming#:~:text=%241%20means%20an%20input%20argument,defined%20when%20running%20the%20script
+# 3: https://stackoverflow.com/questions/42792467/how-to-create-a-bash-script-in-linux-that-checks-if-the-user-is-local-or-not
+
+
 # Import the root check script
 source ../utils/verify_root
 
 # Instruction function to display help
+# Ref - 1
 Instruction() {
     echo "Instruction: $0 -u USERNAME -s SHELL -d HOME_DIR -g ADDITIONAL_GROUPS"
     echo "  -u    Please type the username after -u"
@@ -25,6 +32,7 @@ while getopts "u:s:d:g:" opt; do
 done
 
 # Check if all arguments are provided
+# Ref - 2
 if [[ -z "$username" || -z "$shell" || -z "$home_dir" ]]; then
     echo "Error: Missing required arguments."
     Instruction
@@ -37,6 +45,7 @@ useradd -m -d "$home_dir" -s "$shell" -U "$username"
 echo "Creating user $username."
 
 # Chech if the new user was created
+# Ref - 3
 if ! id -u "$username" &>/dev/null; then
   echo "Error: Failed to create user $username"
   exit 1

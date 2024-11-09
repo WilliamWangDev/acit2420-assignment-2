@@ -1,9 +1,16 @@
 #!/bin/bash
 
+# Reference:
+# 1: https://wiki.archlinux.org/title/Pacman
+# 2: https://stackoverflow.com/questions/1951506/add-a-new-element-to-an-array-without-specifying-the-index-in-bash
+# 3: https://stackoverflow.com/questions/34567826/what-is-usage-in-shell-scripting
+
+
 # Import the root check script
 source ../utils/verify_root
 
 # Instruction function to display help
+# Ref - 3
 Instruction() {
     echo "Instruction: $0 -f package_file_path"
     echo "  -f  Please type the package file to install after -f"
@@ -31,6 +38,7 @@ if [[ ! -f "$package_file" ]]; then
 fi
 
 # Read each line from the package file into an array
+# Ref - 2
 packages=()
 for package in $(cat "$package_file"); do
     packages+=("$package")
@@ -39,7 +47,8 @@ done
 # Print the list of packages to install
 echo "Packages to install: ${packages[@]}"
 
-# Iterate over each package and install it
+# Iterate over each package and install it 
+# Ref - 1
 for package in "${packages[@]}"; do
     if ! pacman -Qi "$package" &> /dev/null; then
         pacman -S "$package"

@@ -1,10 +1,15 @@
 #!/bin/bash
 
+# Reference:
+# 1: https://unix.stackexchange.com/questions/190221/sudo-user-undefined-in-sudo-manual-clarification-would-be-lovely
+
+
 # Import the root check script
 source ../utils/verify_root
 
 
 # Use SUDO_USER to get the actual user's home directory
+# Ref - 1
 USER_HOME="/home/$SUDO_USER"
 
 # Get the current working directory where the script is located
