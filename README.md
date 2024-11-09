@@ -12,8 +12,13 @@
 │   ├── install_script
 │   ├── packages
 │   └── symlinks_script
-└── project2
-    └── create_user_script
+├── project2
+│    └── create_user_script
+└── utils
+    └── verify_root
+
+    
+
 ```
 
 ## Project 1: System Configuration
@@ -24,6 +29,8 @@ Project 1 automates the setup of essential software packages and configuration f
 - `install_script`: Installs packages specified in a package file.
 &nbsp;
 - `symlinks_script`: Creates symbolic links for configuration files.
+&nbsp;
+- `utils/verify_root`: Source utility script to check if the user is running as root.
 
 ### Installation Steps
 1. **Run the Main Setup Script**
