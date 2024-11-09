@@ -3,51 +3,40 @@
 # Import the root check script
 source ../utils/verify_root
 
-# # Get the user's home directory
-# USER_HOME=$(eval echo "~$SUDO_USER")
 
-# # Define paths relative to the user's home directory
-# SCRIPT_DIR="$(realpath "$(dirname "$0")")"
-
-# # Print process message
-# echo "Creating symbolic links..."
-
-# # Create symbolic links
-# ln -sf "$SCRIPT_DIR/config" "$USER_HOME/.config"
-# ln -sf "$SCRIPT_DIR/bin" "$USER_HOME/bin"
-# ln -sf "$SCRIPT_DIR/home/bashrc" "$USER_HOME/.bashrc"
-
-# # Print completion message
-# echo "Symbolic links created successfully."
-
-# Use SUDO_USER to determine the actual user's home directory
+# Use SUDO_USER to get the actual user's home directory
 USER_HOME="/home/$SUDO_USER"
-echo "Using home directory: $USER_HOME"
 
-# Define the root directory where the script is located
-ROOT_DIR="$(pwd)"
-echo "Root directory is set to: $ROOT_DIR"
+# Get the current working directory where the script is located
+CURRENT_DIR="$(pwd)"
 
-# Ensure the ~/bin directory exists and create symbolic links for bin files
+# Create the ~/bin directory 
 mkdir -p "$USER_HOME/bin"
-echo "Creating symbolic links in $USER_HOME/bin"
-ln -sf "$ROOT_DIR/bin/sayhi" "$USER_HOME/bin/sayhi"
-ln -sf "$ROOT_DIR/bin/install-fonts" "$USER_HOME/bin/install-fonts"
 
-# Ensure ~/.config/kak and ~/.config/tmux directories exist, then create symbolic links
+# Create symbolic links for bin files
+echo "Creating symbolic links in $USER_HOME/bin"
+ln -sf "$CURRENT_DIR/bin/sayhi" "$USER_HOME/bin/sayhi"
+ln -sf "$CURRENT_DIR/bin/install-fonts" "$USER_HOME/bin/install-fonts"
+
+# Create ~/.config/kak directory 
 echo "Creating $USER_HOME/.config/kak directory"
 mkdir -p "$USER_HOME/.config/kak"
-echo "Linking kakrc to $USER_HOME/.config/kak/kakrc"
-ln -sf "$ROOT_DIR/config/kak/kakrc" "$USER_HOME/.config/kak/kakrc"
 
+# Create symbolic links for kak config files
+echo "Linking kakrc to $USER_HOME/.config/kak/kakrc"
+ln -sf "$CURRENT_DIR/config/kak/kakrc" "$USER_HOME/.config/kak/kakrc"
+
+# Create ~/.config/tmux directory
 echo "Creating $USER_HOME/.config/tmux directory"
 mkdir -p "$USER_HOME/.config/tmux"
+
+# Create symbolic links for tmux config files
 echo "Linking tmux.conf to $USER_HOME/.config/tmux/tmux.conf"
-ln -sf "$ROOT_DIR/config/tmux/tmux.conf" "$USER_HOME/.config/tmux/tmux.conf"
+ln -sf "$CURRENT_DIR/config/tmux/tmux.conf" "$USER_HOME/.config/tmux/tmux.conf"
 
 # Create a symbolic link for the bashrc file
 echo "Linking bashrc to $USER_HOME/.bashrc"
-ln -sf "$ROOT_DIR/home/bashrc" "$USER_HOME/.bashrc"
+ln -sf "$CURRENT_DIR/home/bashrc" "$USER_HOME/.bashrc"
 
-echo "Symbolic links created successfully for user: $SUDO_USER"
+echo "Symbolic links created successfully."
 
