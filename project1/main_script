@@ -1,9 +1,15 @@
 #!/bin/bash
 
-# Run the package installation script
-./install_script
+# Get the package file path
+PACKAGE_FILE="$(pwd)/packages" 
 
-# Run the symbolic link script
+# Run the install_script with the package file
+echo "Running install_script with package file: $PACKAGE_FILE"
+./install_script -f "$PACKAGE_FILE"
+
+# Run the symlinks_script
+echo "Running symlinks_script"
 ./symlinks_script
 
 echo "System setup complete."
+
